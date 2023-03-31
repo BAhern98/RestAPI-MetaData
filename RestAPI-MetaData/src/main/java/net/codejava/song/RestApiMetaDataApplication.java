@@ -1,0 +1,13 @@
+package net.codejava.song;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RestApiMetaDataApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RestApiMetaDataApplication.class, args);
+	}
+
+}
