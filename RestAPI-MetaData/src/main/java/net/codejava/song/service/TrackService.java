@@ -25,6 +25,6 @@ public class TrackService {
     }
 
     public Track getTrack(String isrc) {
-    	return trackRepository.findById(isrc).orElse(null);
+    	return trackRepository.findByIsrc(isrc);
     }
 }

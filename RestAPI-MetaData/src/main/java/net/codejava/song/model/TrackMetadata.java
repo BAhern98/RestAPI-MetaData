@@ -1,21 +1,21 @@
 package net.codejava.song.model;
 
 public class TrackMetadata {
-    private int durationMs;
+    private Long durationMs;
     private String name;
     private boolean explicit;
 
-    public TrackMetadata(int durationMs, String name, boolean explicit) {
+    public TrackMetadata(Long durationMs, String name, boolean explicit) {
         this.durationMs = durationMs;
         this.name = name;
         this.explicit = explicit;
     }
 
-    public int getDurationMs() {
+    public Long getDurationMs() {
         return durationMs;
     }
 
-    public void setDurationMs(int durationMs) {
+    public void setDurationMs(Long durationMs) {
         this.durationMs = durationMs;
     }
 

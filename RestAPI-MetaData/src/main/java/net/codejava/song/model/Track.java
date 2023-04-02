@@ -1,22 +1,27 @@
 package net.codejava.song.model;
 
+import org.hibernate.annotations.NaturalId;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Track {
     
     @Id
+    @NaturalId
     private String isrc;
     private String name;
-    private int durationMs;
+    private Long durationMs;
     private boolean explicit;
     
     public Track() {
         // default constructor
     }
 
-    public Track(String isrc, String name, int durationMs, boolean explicit) {
+    public Track(String isrc, String name, Long durationMs, boolean explicit) {
         this.isrc = isrc;
         this.name = name;
         this.durationMs = durationMs;
@@ -39,11 +44,11 @@ public class Track {
 		this.name = name;
 	}
 
-	public int getDurationMs() {
+	public Long getDurationMs() {
 		return durationMs;
 	}
 
-	public void setDurationMs(int durationMs) {
+	public void setDurationMs(Long durationMs) {
 		this.durationMs = durationMs;
 	}
 
