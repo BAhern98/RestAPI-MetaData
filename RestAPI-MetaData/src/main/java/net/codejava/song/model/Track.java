@@ -2,31 +2,39 @@ package net.codejava.song.model;
 
 import org.hibernate.annotations.NaturalId;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "track")
 public class Track {
-    
-    @Id
-    @NaturalId
-    private String isrc;
-    private String name;
-    private Long durationMs;
-    private boolean explicit;
-    
-    public Track() {
-        // default constructor
-    }
 
-    public Track(String isrc, String name, Long durationMs, boolean explicit) {
-        this.isrc = isrc;
-        this.name = name;
-        this.durationMs = durationMs;
-        this.explicit = explicit;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	@Column(name = "isrc", unique = true, nullable = false, length = 20)
+	private String isrc;
+
+	@Column(name = "name", nullable = false, length = 100)
+	private String name;
+
+	@Column(name = "duration_ms", nullable = false)
+	private Long durationMs;
+
+	@Column(name = "explicit", nullable = false)
+	private Boolean explicit;
+
+	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDateTime createdAt;
 
 	public String getIsrc() {
 		return isrc;
@@ -52,17 +60,31 @@ public class Track {
 		this.durationMs = durationMs;
 	}
 
-	public boolean isExplicit() {
+	public Boolean getExplicit() {
 		return explicit;
 	}
 
-	public void setExplicit(boolean explicit) {
+	public void setExplicit(Boolean explicit) {
 		this.explicit = explicit;
 	}
-    
-    
-    
-    
-    // constructors, getters, and setters
-    
+
+	@PrePersist
+	public void setCreatedAt() {
+		this.createdAt = LocalDateTime.now();
+	}
+
+	// default constructor for JPA
+	public Track() {
+
+	}
+
+	// constructor with arguments
+	public Track(String isrc, String name, Long durationMs, Boolean explicit) {
+		this.isrc = isrc;
+		this.name = name;
+		this.durationMs = durationMs;
+		this.explicit = explicit;
+		this.createdAt = LocalDateTime.now();
+	}
+
 }
