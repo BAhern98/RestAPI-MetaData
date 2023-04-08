@@ -27,9 +27,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> loginUser(@RequestParam String username, @RequestParam String password) {
-        if (userService.verifyUser(username, password)) {
-            userService.sendVerificationCode(username);
+    public ResponseEntity<Void> loginUser(@RequestParam String email, @RequestParam String password) {
+        if (userService.verifyUser(email, password)) {
+            userService.sendVerificationCode(email);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<Void> verifyUser(@RequestParam String username, @RequestParam String password, @RequestParam String code) {
-        if (userService.verifyUser(username, password, code)) {
+    public ResponseEntity<Void> verifyUser(@RequestParam String email, @RequestParam String password, @RequestParam String code) {
+        if (userService.verifyUser(email, password, code)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

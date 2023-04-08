@@ -64,8 +64,6 @@ public class User {
     @Column(unique = true)
     private String email;
  
-    private String username;
-
     private String password;
  
     private boolean enabled;
@@ -156,7 +154,7 @@ public class User {
 
     public User() {
     }
-    public User(String username, String password, String email) {
+    public User(String password, String email) {
         this.email = email;
         this.password = password;
         this.enabled = true;

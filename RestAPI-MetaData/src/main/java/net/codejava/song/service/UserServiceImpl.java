@@ -25,25 +25,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(UserDto userDto) {
-        User user = new User(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()), userDto.getEmail());
+        User user = new User(passwordEncoder.encode(userDto.getPassword()), userDto.getEmail());
         return userRepository.save(user);
     }
   
 
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public boolean verifyUser(String username, String password) {
-        User user = findByUsername(username);
+    public boolean verifyUser(String email, String password) {
+        User user = findByEmail(email);
         return user != null && passwordEncoder.matches(password, user.getPassword());
     }
 
     @Override
-    public boolean verifyUser(String username, String password, String code) {
-        User user = findByUsername(username);
+    public boolean verifyUser(String email, String password, String code) {
+        User user = findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             return user.getVerificationCode().equals(code);
         }
@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendVerificationCode(String username) {
-        User user = findByUsername(username);
+    public void sendVerificationCode(String email) {
+        User user = findByEmail(email);
         if (user != null) {
             String code = codeGenerator.generateCode();
             user.setVerificationCode(code);
