@@ -15,41 +15,13 @@ import net.codejava.song.model.Track;
 import net.codejava.song.model.TrackMetadata;
 import net.codejava.song.service.TrackService;
 
-//@RestController
-//@RequestMapping("/codechallenge")
-//public class TrackController {
-//    
-//    @Autowired
-//    private TrackService trackService;
-//    
-////    @PostMapping("/createTrack")
-////    public void createTrack(@RequestParam String isrc) {
-////        trackService.createTrack(isrc);
-////    }
-//    @PostMapping("/createTrack")
-//    public ResponseEntity<Track> createTrack(@RequestParam String isrc, @RequestBody TrackMetadata metadata) {
-//        Track track = trackService.createTrack(isrc, metadata);
-//        return ResponseEntity.ok(track);
-//    }
-//    
-//    @GetMapping("/getTrack")
-//    public ResponseEntity<Track> getTrack(@RequestParam String isrc) {
-//        Track track = trackService.getTrack(isrc);
-//        return ResponseEntity.ok(track);
-//    }
-//}
+
 @RestController
 @RequestMapping("/codechallenge")
 public class TrackController {
 
     @Autowired
     private TrackService trackService;
-
-//  @PostMapping("/createTrack")
-//    public ResponseEntity<Track> createTrack(@RequestBody Track track) {
-//        Track createdTrack = trackService.createTrack(track);
-//        return new ResponseEntity<>(createdTrack, HttpStatus.CREATED);
-//    }
     @PostMapping("/createTrack")
     public ResponseEntity<Track> createTrack(@RequestParam String isrc, @RequestBody Track track) {
         track.setIsrc(isrc); // set the isrc value in the track object
