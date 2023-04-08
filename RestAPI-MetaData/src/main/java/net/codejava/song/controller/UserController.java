@@ -1,5 +1,7 @@
 package net.codejava.song.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ import net.codejava.song.model.UserDto;
 import net.codejava.song.service.UserService;
 
 @RestController
-@RequestMapping("/codingchallange")
+@RequestMapping("/codechallenge")
 public class UserController {
 	
 	@Autowired
@@ -27,7 +29,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> loginUser(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<Void> loginUser(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        String password = requestBody.get("password");
+
         if (userService.verifyUser(email, password)) {
             userService.sendVerificationCode(email);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -37,11 +42,16 @@ public class UserController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<Void> verifyUser(@RequestParam String email, @RequestParam String password, @RequestParam String code) {
+    public ResponseEntity<Void> verifyUser(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        String password = requestBody.get("password");
+        String code = requestBody.get("code");
+
         if (userService.verifyUser(email, password, code)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
 }
