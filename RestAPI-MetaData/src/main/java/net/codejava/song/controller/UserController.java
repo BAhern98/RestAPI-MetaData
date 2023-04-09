@@ -41,17 +41,29 @@ public class UserController {
         }
     }
 
+//    @PostMapping("/verify")
+//    public ResponseEntity<String> verifyUser(@RequestParam String email, @RequestParam String password, @RequestParam String code) {
+//        if (userService.verifyUser(email, password, code)) {
+//            String accessToken = userService.generateAccessToken(email);
+//            return ResponseEntity.ok(accessToken);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid verification code");
+//        }
+//    }
     @PostMapping("/verify")
-    public ResponseEntity<Void> verifyUser(@RequestBody Map<String, String> requestBody) {
-        String email = requestBody.get("email");
+    public ResponseEntity<String> verifyUser(@RequestBody Map<String,String> requestBody) {
+    	String email = requestBody.get("email");
         String password = requestBody.get("password");
         String code = requestBody.get("code");
-
-        if (userService.verifyUser(email, password, code)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+        
+		if (userService.verifyUser(email, password, code)) {
+			String accessToken = userService.generateAccessToken(email);
+			return ResponseEntity.ok(accessToken);
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid verification code");
+		}
     }
+
+
 
 }

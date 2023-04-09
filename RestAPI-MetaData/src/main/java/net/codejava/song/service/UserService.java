@@ -9,4 +9,5 @@ public interface UserService {
     boolean verifyUser(String email, String password);
     boolean verifyUser(String email, String password, String code);
     void sendVerificationCode(String email);
+	String generateAccessToken(String email);
 }

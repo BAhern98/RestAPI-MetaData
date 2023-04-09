@@ -1,13 +1,26 @@
 package net.codejava.song.service;
 
+import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import net.codejava.song.model.User;
 import net.codejava.song.model.UserDto;
 import net.codejava.song.repo.UserRepository;
-
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -60,5 +73,59 @@ public class UserServiceImpl implements UserService {
             emailService.sendVerificationCode(user.getEmail(), code);
         }
     }
+    
+//    @Override
+//    public String generateAccessToken(String email) {
+//        String secretKey = "mySecretKey"; // Change this to your actual secret key
+//        Date expiryDate = new Date(System.currentTimeMillis() + 3600000); // Set the token to expire after an hour
+//        
+//        String token = Jwts.builder()
+//            .setSubject(email)
+//            .setExpiration(expiryDate)
+//            .signWith(SignatureAlgorithm.HS512, secretKey.getBytes())
+//            .compact();
+//
+//        return token;
+////    }
+//    public String generateAccessToken(String email) {
+//        String secretKey = "mySecretKey";
+//        String issuer = "myIssuer";
+//        String subject = "accessToken";
+//        long currentTimeMillis = System.currentTimeMillis();
+//        long expirationInMillis = 86400000L; // one day
+//        Date issuedAt = new Date(currentTimeMillis);
+//        Date expiresAt = new Date(currentTimeMillis + expirationInMillis);
+//        String token = Jwts.builder()
+//                .setIssuer(issuer)
+//                .setSubject(subject)
+//                .setIssuedAt(issuedAt)
+//                .setExpiration(expiresAt)
+//                .claim("email", email)
+//                .signWith(SignatureAlgorithm.HS256, secretKey)
+//                .compact();
+//        return token;
+//    }
+    
+    public String generateAccessToken(String email) {
+        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // generate a secure key for HMAC-SHA256
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + 3600000); // token will expire after 1 hour
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", email);
+
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .addClaims(claims)
+                .signWith(key)
+                .compact();
+    }
+
+
+
+
+
     
 }
