@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 //                .compact();
 //        return token;
 //    }
-    
+    @Override
     public String generateAccessToken(String email) {
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // generate a secure key for HMAC-SHA256
         Date now = new Date();
