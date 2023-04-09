@@ -1,5 +1,6 @@
 package net.codejava.song.test;
 import static org.junit.Assert.assertEquals;
+
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
@@ -19,25 +20,28 @@ import org.apache.http.util.EntityUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockserver.client.server.MockServerClient;
+//import org.mockserver.client.server.MockServerClient;
 //import org.mockserver.client.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
+import org.springframework.boot.test.context.SpringBootTest;
 
-public class TestMockServer {
 
-    private ClientAndServer mockServer;
-
-    @BeforeClass
-    public void startServer() {
-        mockServer = startClientAndServer(1080);
-    }
- 
-    @AfterClass 
-    public void stopServer() { 
-        mockServer.stop();
-    }
-    
-    
+//@SpringBootTest
+//public class TestMockServer {
+//
+//    private ClientAndServer mockServer;
+//
+//    @BeforeClass
+//    public void startServer() {
+//        mockServer = startClientAndServer(1080);
+//    }
+// 
+//    @AfterClass 
+//    public void stopServer() { 
+//        mockServer.stop();
+//    }
+//    
+//    
 //    @Test
 //    public void shouldReturnTrack() throws Exception{
 //        String isrc = "TEST1234560000";
@@ -68,7 +72,7 @@ public class TestMockServer {
 //        assertEquals(responseBody, responseString);
 //
 //        httpClient.close();
-//    }
+////    }
 //    @Test
 //    public void shouldReturnTrack() throws Exception {
 //        String isrc = "TEST1234560000";
@@ -99,7 +103,7 @@ public class TestMockServer {
 //        assertEquals(responseBody, response);
 //        assertEquals(200, httpResponse.statusCode());
 //    }
-
- 
-    // ...
-}
+//
+// 
+//    // ...
+//}
