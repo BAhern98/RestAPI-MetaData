@@ -1,29 +1,29 @@
-package net.codejava.song.test;
-import static org.junit.Assert.assertEquals;
-
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-//import org.mockserver.client.server.MockServerClient;
-//import org.mockserver.client.MockServerClient;
-import org.mockserver.integration.ClientAndServer;
-import org.springframework.boot.test.context.SpringBootTest;
+//package net.codejava.song.test;
+//import static org.junit.Assert.assertEquals;
+//
+//import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+//import static org.mockserver.model.HttpRequest.request;
+//import static org.mockserver.model.HttpResponse.response;
+//
+//import java.io.IOException;
+//import java.net.URI;
+//import java.net.http.HttpClient;
+//import java.net.http.HttpRequest;
+//import java.net.http.HttpResponse;
+//
+//import org.apache.http.client.ClientProtocolException;
+//import org.apache.http.client.methods.CloseableHttpResponse;
+//import org.apache.http.client.methods.HttpGet;
+//import org.apache.http.impl.client.CloseableHttpClient;
+//import org.apache.http.impl.client.HttpClients;
+//import org.apache.http.util.EntityUtils;
+//import org.junit.AfterClass;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
+////import org.mockserver.client.server.MockServerClient;
+////import org.mockserver.client.MockServerClient;
+//import org.mockserver.integration.ClientAndServer;
+//import org.springframework.boot.test.context.SpringBootTest;
 
 
 //@SpringBootTest

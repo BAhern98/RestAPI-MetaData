@@ -29,6 +29,7 @@ import net.codejava.song.service.TrackService;
 @RequestMapping("/codechallenge")
 public class TrackController {
 
+    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	@Autowired
 	private TrackService trackService;
 
@@ -97,7 +98,7 @@ public class TrackController {
 	public ResponseEntity<Track> getTrack(@RequestParam String isrc, @RequestHeader("Authorization") String authToken) {
 		try {
 			// Check if the user is authorized to access the track
-			if (!checkAuthToken(isrc)) {
+			if (!checkAuthToken(authToken)) {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
@@ -111,17 +112,15 @@ public class TrackController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-	private boolean checkAuthToken(String authToken) {
+	
+	public boolean checkAuthToken(String authToken) {
 	    try {
-	        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // generate a secure key for HMAC-SHA256
-	        Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
+	        Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(authToken);
 	        return true;
 	    } catch (JwtException e) {
 	        return false;
 	    }
 	}
-
 //    @GetMapping("/getTrack")
 //    public ResponseEntity<Track> getTrack(@RequestParam String isrc) {
 //        Track track = trackService.getTrack(isrc);

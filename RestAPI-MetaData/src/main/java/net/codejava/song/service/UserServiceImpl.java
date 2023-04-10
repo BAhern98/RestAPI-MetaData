@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import net.codejava.song.model.User;
@@ -21,12 +24,19 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.security.SecureRandom;
+import java.util.Base64;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final VerificationCodeGenerator codeGenerator;
+    
+//    String secret = generateRandomString(32);
+//    Key key = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, VerificationCodeGenerator codeGenerator) {
@@ -41,6 +51,15 @@ public class UserServiceImpl implements UserService {
         User user = new User(passwordEncoder.encode(userDto.getPassword()), userDto.getEmail());
         return userRepository.save(user);
     }
+ 
+
+    public static String generateRandomString(int length) {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] randomBytes = new byte[length];
+        secureRandom.nextBytes(randomBytes);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
+    }
+
   
 
     @Override
@@ -123,9 +142,9 @@ public class UserServiceImpl implements UserService {
 //                .compact();
 //    }
     
+
     @Override
     public String generateAccessToken() {
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // generate a secure key for HMAC-SHA256
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + 3600000); // token will expire after 1 hour
 
@@ -133,9 +152,12 @@ public class UserServiceImpl implements UserService {
                 .setIssuer("myApplication") // set the issuer claim to identify the application that generated the token
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(key)
+                .signWith(SECRET_KEY)
                 .compact();
     }
+    
+
+
 
 
 
