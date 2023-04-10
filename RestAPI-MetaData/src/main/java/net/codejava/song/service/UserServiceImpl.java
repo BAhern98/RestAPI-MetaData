@@ -105,23 +105,38 @@ public class UserServiceImpl implements UserService {
 //                .compact();
 //        return token;
 //    }
+//    @Override
+//    public String generateAccessToken(String email) {
+//        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // generate a secure key for HMAC-SHA256
+//        Date now = new Date();
+//        Date expiryDate = new Date(now.getTime() + 3600000); // token will expire after 1 hour
+//
+//        Map<String, Object> claims = new HashMap<>();
+//        claims.put("email", email);
+//
+//        return Jwts.builder()
+//                .setSubject(email)
+//                .setIssuedAt(now)
+//                .setExpiration(expiryDate)
+//                .addClaims(claims)
+//                .signWith(key)
+//                .compact();
+//    }
+    
     @Override
-    public String generateAccessToken(String email) {
+    public String generateAccessToken() {
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // generate a secure key for HMAC-SHA256
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + 3600000); // token will expire after 1 hour
 
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("email", email);
-
         return Jwts.builder()
-                .setSubject(email)
+                .setIssuer("myApplication") // set the issuer claim to identify the application that generated the token
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .addClaims(claims)
                 .signWith(key)
                 .compact();
     }
+
 
 
 

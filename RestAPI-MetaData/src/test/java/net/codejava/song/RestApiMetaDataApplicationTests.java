@@ -68,6 +68,43 @@ class RestApiMetaDataApplicationTests {
         assertEquals(responseBody, response);
         assertEquals(200, httpResponse.statusCode());
     }
+    
+//    @Test
+//    void testCreateTrack() throws Exception {
+//        // Start MockServer and configure response
+//        MockServerClient mockServer = startClientAndServer(1080);
+//        String isrc = "TEST1234560000";
+//        String responseBody = "{\"id\": \"1\",\"isrc\": \"" + isrc + "\",\"name\": \"Some new track!\",\"duration_ms\": 12000000,\"explicit\": true}";
+//
+//        mockServer.when(
+//                request()
+//                        .withMethod("POST")
+//                        .withPath("/createTrack")
+//                        .withHeader("Authorization", "Bearer " + JWT_TOKEN)
+//                        .withQueryStringParameter("isrc", isrc)
+//                        .withBody(json("{\"name\":\"Some new track!\",\"duration_ms\":12000000,\"explicit\":true}"))
+//        ).respond(
+//                response()
+//                        .withStatusCode(201)
+//                        .withBody(responseBody)
+//                        .withHeader("Content-Type", "application/json")
+//        );
+//
+//        // Send HTTP request to endpoint
+//        HttpClient httpClient = HttpClient.newHttpClient();
+//        HttpRequest httpRequest = HttpRequest.newBuilder()
+//                .POST(HttpRequest.BodyPublishers.ofString("{\"name\":\"Some new track!\",\"duration_ms\":12000000,\"explicit\":true}"))
+//                .uri(URI.create("http://localhost:8080/createTrack?isrc=" + isrc))
+//                .header("Content-Type", "application/json")
+//                .header("Authorization", "Bearer " + JWT_TOKEN)
+//                .build();
+//        HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+//
+//        // Verify response
+//        assertEquals(201, httpResponse.statusCode());
+//        assertEquals(responseBody, httpResponse.body());
+//    }
+
 
  
 

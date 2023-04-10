@@ -57,7 +57,7 @@ public class UserController {
         String code = requestBody.get("code");
         
 		if (userService.verifyUser(email, password, code)) {
-			String accessToken = userService.generateAccessToken(email);
+			String accessToken = userService.generateAccessToken();
 			return ResponseEntity.ok(accessToken);
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid verification code");
