@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.jsonwebtoken.JwtException;
 import net.codejava.song.model.UserDto;
 import net.codejava.song.service.Token;
 import net.codejava.song.service.UserService;
@@ -23,11 +25,29 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping
+    @PostMapping("/createUser")
     public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
         userService.createUser(userDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+//	@PostMapping("/createUser")
+//	public ResponseEntity<Void> createUser(@RequestBody UserDto userDto, @RequestHeader("Authorization") String authToken) {
+//	    try {
+//	        if (!Token.checkAuthToken(authToken)) {
+//	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//	        }
+//	        
+//	        userService.createUser(userDto);
+//	        return new ResponseEntity<>(HttpStatus.CREATED);
+//	    } catch (JwtException e) {
+//	        // The access token is invalid or has expired
+//	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//	    } catch (Exception e) {
+//	        // Log the exception and return a 500 Internal Server Error response
+//	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//	    }
+//	}
+
 
     @PostMapping("/login")
     public ResponseEntity<Void> loginUser(@RequestBody Map<String, String> requestBody) {
@@ -42,15 +62,7 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/verify")
-//    public ResponseEntity<String> verifyUser(@RequestParam String email, @RequestParam String password, @RequestParam String code) {
-//        if (userService.verifyUser(email, password, code)) {
-//            String accessToken = userService.generateAccessToken(email);
-//            return ResponseEntity.ok(accessToken);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid verification code");
-//        }
-//    }
+
     @PostMapping("/verify")
     public ResponseEntity<String> verifyUser(@RequestBody Map<String,String> requestBody) {
     	String email = requestBody.get("email");

@@ -22,7 +22,6 @@ import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 
 import net.codejava.song.model.Track;
-import net.codejava.song.model.TrackMetadata;
 import net.codejava.song.service.Token;
 import net.codejava.song.service.TrackService;
 
@@ -31,7 +30,6 @@ import net.codejava.song.service.TrackService;
 @RequestMapping("/codechallenge")
 public class TrackController {
 
-    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	@Autowired
 	private TrackService trackService;
 
