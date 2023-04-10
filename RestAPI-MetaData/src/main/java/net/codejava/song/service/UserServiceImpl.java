@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
     private final EmailService emailService;
     private final VerificationCodeGenerator codeGenerator;
     
-//    String secret = generateRandomString(32);
-//    Key key = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+    String secret = generateRandomString(32);
+    Key key = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
 
 
     @Autowired
@@ -143,18 +143,7 @@ public class UserServiceImpl implements UserService {
 //    }
     
 
-    @Override
-    public String generateAccessToken() {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + 3600000); // token will expire after 1 hour
 
-        return Jwts.builder()
-                .setIssuer("myApplication") // set the issuer claim to identify the application that generated the token
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(SECRET_KEY)
-                .compact();
-    }
     
 
 

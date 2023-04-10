@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.codejava.song.model.UserDto;
+import net.codejava.song.service.Token;
 import net.codejava.song.service.UserService;
 
 @RestController
@@ -57,7 +58,7 @@ public class UserController {
         String code = requestBody.get("code");
         
 		if (userService.verifyUser(email, password, code)) {
-			String accessToken = userService.generateAccessToken();
+			String accessToken = Token.generateAccessToken();
 			return ResponseEntity.ok(accessToken);
 		} else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid verification code");

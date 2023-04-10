@@ -23,7 +23,9 @@ import java.security.Key;
 
 import net.codejava.song.model.Track;
 import net.codejava.song.model.TrackMetadata;
+import net.codejava.song.service.Token;
 import net.codejava.song.service.TrackService;
+
 
 @RestController
 @RequestMapping("/codechallenge")
@@ -67,7 +69,7 @@ public class TrackController {
 	public ResponseEntity<Track> createTrack(@RequestParam String isrc, @RequestBody Track track, @RequestHeader("Authorization") String authToken) {
 	    try {
 	        // Check if the user is authorized to access the track
-	        if (!checkAuthToken(authToken)) {
+	        if (!Token.checkAuthToken(authToken)) {
 	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	        }
 	        // Validate input parameters
@@ -98,7 +100,7 @@ public class TrackController {
 	public ResponseEntity<Track> getTrack(@RequestParam String isrc, @RequestHeader("Authorization") String authToken) {
 		try {
 			// Check if the user is authorized to access the track
-			if (!checkAuthToken(authToken)) {
+			if (!Token.checkAuthToken(authToken)) {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
@@ -113,14 +115,7 @@ public class TrackController {
 		}
 	}
 	
-	public boolean checkAuthToken(String authToken) {
-	    try {
-	        Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(authToken);
-	        return true;
-	    } catch (JwtException e) {
-	        return false;
-	    }
-	}
+
 //    @GetMapping("/getTrack")
 //    public ResponseEntity<Track> getTrack(@RequestParam String isrc) {
 //        Track track = trackService.getTrack(isrc);
