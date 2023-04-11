@@ -25,28 +25,24 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/createUser")
-    public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
-        userService.createUser(userDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-//	@PostMapping("/createUser")
-//	public ResponseEntity<Void> createUser(@RequestBody UserDto userDto, @RequestHeader("Authorization") String authToken) {
-//	    try {
-//	        if (!Token.checkAuthToken(authToken)) {
-//	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//	        }
-//	        
-//	        userService.createUser(userDto);
-//	        return new ResponseEntity<>(HttpStatus.CREATED);
-//	    } catch (JwtException e) {
-//	        // The access token is invalid or has expired
-//	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//	    } catch (Exception e) {
-//	        // Log the exception and return a 500 Internal Server Error response
-//	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//	    }
-//	}
+
+	@PostMapping("/createUser")
+	public ResponseEntity<Void> createUser(@RequestBody UserDto userDto, @RequestHeader("Authorization") String authToken) {
+	    try {
+	        if (!Token.checkAuthToken(authToken)) {
+	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	        }
+	        
+	        userService.createUser(userDto);
+	        return new ResponseEntity<>(HttpStatus.CREATED);
+	    } catch (JwtException e) {
+	        // The access token is invalid or has expired
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	    } catch (Exception e) {
+	        // Log the exception and return a 500 Internal Server Error response
+	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
 
 
     @PostMapping("/login")
