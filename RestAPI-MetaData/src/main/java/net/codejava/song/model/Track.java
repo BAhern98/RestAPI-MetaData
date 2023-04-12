@@ -3,15 +3,19 @@ package net.codejava.song.model;
 import org.hibernate.annotations.NaturalId;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name = "track")
@@ -35,6 +39,18 @@ public class Track {
 
 	@Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime createdAt;
+
+	@Column(nullable = false)
+	private String artists;
+	
+
+    public List<String> getArtistsList() {
+        return Arrays.asList(artists.split(","));
+    }
+
+    public void setArtistsList(List<String> artistsList) {
+        this.artists = String.join(",", artistsList);
+    }
 
 	public String getIsrc() {
 		return isrc;
