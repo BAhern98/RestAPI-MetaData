@@ -29,20 +29,11 @@ CREATE TABLE `track` (
   `duration_ms` int NOT NULL,
   `explicit` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `artists` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `isrc` (`isrc`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `track`
---
-
-LOCK TABLES `track` WRITE;
-/*!40000 ALTER TABLE `track` DISABLE KEYS */;
-INSERT INTO `track` VALUES (1,'TEST1234560000','Some new track!',12000000,1,'2023-04-07 11:14:28'),(2,'TEST1234560001','Another track',18000000,0,'2023-04-07 11:14:28'),(3,'TEST1234560002','Third track',15000000,1,'2023-04-07 11:14:28'),(4,'TEST1234567815','My Track',240000,1,'2023-04-07 14:05:27'),(6,'TEST1234567816','My Track',240000,1,'2023-04-07 15:33:38');
-/*!40000 ALTER TABLE `track` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -62,16 +53,6 @@ CREATE TABLE `user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'john@example.com','password1',1,'4J32Q5LRNBSW6BNZ','123456'),(2,'j','$2a$12$9l7hZKUzmazV9kAV/4Jc4OcRPcAmUAfWkYIP8O1FAxjyxIxB9DXR2',1,'SJ6RGRF3DTHLEWVB','217133'),(3,'brendan@ballysheen.net','$2a$12$ZP8Ri9l.TVnXoAb4bcN7Veo3Ft53Vx2IaLdOpZacLEBqFcaFBySgW',0,NULL,'912317'),(4,'sdfs','$2a$12$8ax0.D5jmUnvgxRE8NgS5u.s13CstFAu2iGfklkb931/w8qFjC5DS',1,'4J32Q5LRNBSW6BNZ','435986'),(5,'Luminous.sofia@gmail.com','$2a$10$GL/6p2EbNm7yH2jEulTwVe939Wb74NiAA6RXgoCJvApmREt6yHy/y',1,'W7DIN7ANR55BGLEG',NULL);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -82,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-11 11:37:09
+-- Dump completed on 2023-04-12  9:02:46
