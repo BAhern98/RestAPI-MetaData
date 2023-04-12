@@ -35,40 +35,13 @@ public class TrackController {
 
 
 
-//	@PostMapping("/createTrack")
-//	public ResponseEntity<Track> createTrack(@RequestParam String isrc, @RequestBody Track track, @RequestHeader("Authorization") String authToken) {
-//	    try {
-//	        // Check if the user is authorized to access the track
-//	        if (!Token.checkAuthToken(authToken)) {
-//	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//	        }
-//	        // Validate input parameters
-//	        if (isrc == null || isrc.isEmpty()) {
-//	            throw new IllegalArgumentException("isrc parameter is required");
-//	        }
-//	        if (track == null) {
-//	            throw new IllegalArgumentException("Track object is required");
-//	        }
-//	        
-//	        // Set the isrc value in the track object
-//	        track.setIsrc(isrc);
-//
-//	        // Create the track
-//	        Track createdTrack = trackService.createTrack(track);
-//	        return new ResponseEntity<>(createdTrack, HttpStatus.CREATED);
-//	    } catch (IllegalArgumentException e) {
-//	        // Return a 400 Bad Request response if the input parameters are invalid
-//	        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//	    } catch (Exception e) {
-//	        // Log the exception and return a 500 Internal Server Error response
-//	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//	    }
-//	}
 	@PostMapping("/createTrack")
-	public ResponseEntity<Track> createTrack(@RequestParam String isrc, @RequestBody Track track) {
+	public ResponseEntity<Track> createTrack(@RequestParam String isrc, @RequestBody Track track, @RequestHeader("Authorization") String authToken) {
 	    try {
 	        // Check if the user is authorized to access the track
-	       
+	        if (!Token.checkAuthToken(authToken)) {
+	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	        }
 	        // Validate input parameters
 	        if (isrc == null || isrc.isEmpty()) {
 	            throw new IllegalArgumentException("isrc parameter is required");
@@ -92,30 +65,15 @@ public class TrackController {
 	    }
 	}
 
-//	@GetMapping("/getTrack")
-//	public ResponseEntity<Track> getTrack(@RequestParam String isrc, @RequestHeader("Authorization") String authToken) {
-//		try {
-//			// Check if the user is authorized to access the track
-//			if (!Token.checkAuthToken(authToken)) {
-//				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//			}
-//
-//			Track track = trackService.getTrack(isrc);
-//			if (track == null) {
-//				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//			}
-//			return new ResponseEntity<>(track, HttpStatus.OK);
-//		} catch (Exception e) {
-//			// Log the exception
-//			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-	
+
 	@GetMapping("/getTrack")
-	public ResponseEntity<Track> getTrack(@RequestParam String isrc) {
+	public ResponseEntity<Track> getTrack(@RequestParam String isrc, @RequestHeader("Authorization") String authToken) {
 		try {
 			// Check if the user is authorized to access the track
-		
+			if (!Token.checkAuthToken(authToken)) {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+
 			Track track = trackService.getTrack(isrc);
 			if (track == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -128,13 +86,5 @@ public class TrackController {
 	}
 	
 
-//    @GetMapping("/getTrack")
-//    public ResponseEntity<Track> getTrack(@RequestParam String isrc) {
-//        Track track = trackService.getTrack(isrc);
-//        if (track == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(track, HttpStatus.OK);
-//    }
 
 }
