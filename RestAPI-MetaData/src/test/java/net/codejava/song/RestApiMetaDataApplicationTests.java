@@ -44,7 +44,7 @@ class RestApiMetaDataApplicationTests {
 
         String isrc = "TEST1234560000";
 
-        String expectedResponseBody = "{\"id\":\"1234\",\"name\":\"Some new track!\",\"duration_ms\":12000000,\"explicit\":true}";
+        String expectedResponseBody = "{\"id\":\"1234\",\"name\":\"Some new track!\",\"duration_ms\":12000000,\"explicit\":true,\"artistsList\":[\"Artist 1\", \"Artist 2\"]}";
 
         new MockServerClient("localhost", 1080)
             .when(
@@ -85,7 +85,7 @@ class RestApiMetaDataApplicationTests {
         String isrc = "TEST1234560000"; 
 
         // Set up the expected response body
-        String expectedResponseBody = "{\"id\":\"1234\",\"name\":\"Some new track!\",\"duration_ms\":12000000,\"explicit\":true}";
+        String expectedResponseBody = "{\"id\":\"1234\",\"name\":\"Some new track!\",\"duration_ms\":12000000,\"explicit\":true,\"artistsList\":[\"Artist 1\", \"Artist 2\"]}";
 
         // Set up the MockServer to respond to a GET request to /getTrack with query parameter 'isrc' and header 'Authorization'
         new MockServerClient("localhost", 1080)
@@ -209,8 +209,8 @@ class RestApiMetaDataApplicationTests {
         mockServer = startClientAndServer(1080);
 
         String isrc = "TEST1234560000";
-        String requestBody = "{\"name\": \"Some new track!\",\"duration_ms\": 12000000, \"explicit\": true}";
-        String responseBody = "{\"id\": \"1234\",\"name\": \"Some new track!\",\"duration_ms\": 12000000, \"explicit\": true}";
+        String requestBody = "{\"name\": \"Some new track!\",\"duration_ms\": 12000000, \"explicit\": true, \"artistsList\": [\"Artist 1\", \"Artist 2\"]}";
+        String responseBody = "{\"id\": \"1234\",\"name\": \"Some new track!\",\"duration_ms\": 12000000, \"explicit\": true, \"artistsList\": [\"Artist 1\", \"Artist 2\"]}";
 
         new MockServerClient("localhost", 1080)
             .when(
@@ -240,9 +240,8 @@ class RestApiMetaDataApplicationTests {
         assertEquals(responseBody, response);
         assertEquals(201, httpResponse.statusCode());
         mockServer.stop();
-
-        
     }
+
     @Test
     public void createTrackTest_400() throws Exception {
         mockServer = startClientAndServer(1080);
@@ -250,7 +249,7 @@ class RestApiMetaDataApplicationTests {
 
         // Set up test data
         String isrc = "TEST1234560000";
-        String requestBody = "{\"name\": \"Some new track!\",\"durationMs\": 12000000,\"explicit\": true}";
+        String requestBody = "{\"name\": \"Some new track!\",\"duration_ms\": 12000000, \"explicit\": true, \"artistsList\": [\"Artist 1\", \"Artist 2\"]}";
         String responseBody = "{\"error\": \"Bad Request\"}";
 
         // Set up MockServer expectations
