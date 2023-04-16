@@ -1,8 +1,6 @@
 package net.codejava.song.service;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -22,10 +20,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.security.SecureRandom;
-import java.util.Base64;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -87,6 +83,13 @@ public class UserServiceImpl implements UserService {
         User user = findByEmail(email);
         if (user != null) {
             String code = codeGenerator.generateCode();
+            Random random = new Random();
+
+            if (code.charAt(0) == '0') {
+                code = Integer.toString(random.nextInt(9) + 1) + code.substring(1);
+            }
+
+
             user.setVerificationCode(code);
             userRepository.save(user);
             emailService.sendVerificationCode(user.getEmail(), code);
